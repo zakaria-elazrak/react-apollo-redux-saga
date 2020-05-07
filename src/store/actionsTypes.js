@@ -1,0 +1,6 @@
+export const ADD_POST = 'ADD POST';
+export const REMOVE_POST = 'REMOVE POST';
+export const LOAD_POSTS = "LOAD_POSTS";
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
+export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
+export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
