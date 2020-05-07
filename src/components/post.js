@@ -1,7 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
 
-import {DELETE_POST, POSTS_QUERY} from '../queries/posts';
 
 const Post = ({post, handleDelete})=>{
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 
 import Post from '../components/post';
 import {POSTS_QUERY, DELETE_POST} from '../queries/posts';
 
 const Blog = ()=>{
-    const { loading, error, data } = useQuery(POSTS_QUERY);
+    const { loading, error, data } = useSubscription(POSTS_QUERY);
 
     const [deletePost, ] = useMutation(DELETE_POST, {
         update(cache, { data: { delete_posts } }) {
