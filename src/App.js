@@ -5,15 +5,14 @@ import Nav from './components/nav';
 import Blog from './pages/blog';
 import AddPost from './pages/add-post';
 import ManagePosts from './pages/manage-posts';
-import ApolloProvider  from './utils/apolloProvider';
+import { Provider } from 'react-redux';
 
-
+import store from './store'
 
 function App() {
-
   return (
     <div className="app">
-      <ApolloProvider>
+      <Provider store={store}>
         <Router>
           <Nav/>
           <Switch>
@@ -22,7 +21,7 @@ function App() {
             <Route path="/"><Blog /></Route>
           </Switch>
         </Router>
-      </ApolloProvider>
+      </Provider>
     </div>
   );
 }

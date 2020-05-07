@@ -7,19 +7,20 @@ const initialState= {
 const posts = (state= initialState, action) =>{
     switch(action.type){
         case ADD_POST_SUCCESS:
-            const newPost = action.payload;
+            const newPost = action.payload.post;
+            console.log(newPost);
             const newPosts = [...state.posts, newPost];
             return {...state, posts: newPosts};
         break;
         case REMOVE_POST_SUCCESS:
-            const filteredPosts = state.posts.filter(p=> p.id != action.payload.id);
+            const filteredPosts = state.posts.filter(p=> p.id != action.payload.post.id);
             return {...state, posts: filteredPosts};
         break;
         case LOAD_POSTS_SUCCESS:
-            return {...state, posts: action.payload};
+            return {...state, posts: action.payload.posts};
         break;
         default: 
-           return;
+           return state;
     }
 }
 

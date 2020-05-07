@@ -1,9 +1,13 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useDispatch } from 'react-redux';
+import {removePost} from '../store/actions'
 
-import {DELETE_POST, POSTS_QUERY} from '../queries/posts';
+const Post = ({post})=>{
+    const dispatch = useDispatch();
 
-const Post = ({post, handleDelete})=>{
+    const handleDelete = ()=>{
+        dispatch(removePost(post));
+    }
 
     return (
         <div className="container">

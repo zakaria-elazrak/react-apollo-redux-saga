@@ -1,20 +1,11 @@
 import React, {useState} from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import {INSERT_POST, POSTS_QUERY} from '../queries/posts'
+import { useDispatch } from 'react-redux';
+import {addPost} from '../store/actions'
 
 const AddPost = ()=>{
     const [state, setState] = useState({title: "", body: ""});
+    const dispatch = useDispatch();
 
-    const [addPost, { data }] = useMutation(INSERT_POST, {
-        update(cache, { data: { insert_posts } }) {
-            const { posts } = cache.readQuery({ query: POSTS_QUERY });
-            console.log(posts);
-            cache.writeQuery({
-            query: POSTS_QUERY,
-            data: { posts: posts.concat([insert_posts.returning[0]]) },
-            });
-        }     
-    });
 
 
     const handleChange = (e)=>{
@@ -22,7 +13,7 @@ const AddPost = ()=>{
         setState(state => ({...state, [name]: value}))
     }
     const handleConfirm = ()=>{
-        addPost({variables:{title: state.title, body: state.body}})
+        dispatch(addPost(state));
     }
     return (
         <div className='form'>

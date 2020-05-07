@@ -1,35 +1,23 @@
-import React from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-
+import React, { useEffect } from 'react';
+import {shallowEqual,  useSelector, useDispatch } from 'react-redux';
+import {loadPosts} from '../store/actions';
 import Post from '../components/post';
-import {POSTS_QUERY, DELETE_POST} from '../queries/posts';
 
 const Blog = ()=>{
-    const { loading, error, data } = useQuery(POSTS_QUERY);
+    const posts = useSelector(data => data.posts, shallowEqual);
+    const dispatch = useDispatch();
 
-    const [deletePost, ] = useMutation(DELETE_POST, {
-        update(cache, { data: { delete_posts } }) {
-            const { posts } = cache.readQuery({ query: POSTS_QUERY });
-        
-            const filtered = posts.filter(p=> {
-                return p.id != delete_posts.returning[0].id
-            });
-            console.log(filtered);
-            cache.writeQuery({
-            query: POSTS_QUERY,
-            data: { posts:  filtered},
-            });
-        } 
-    })
+    useEffect(()=>{
+        dispatch(loadPosts());
+    }, [])
 
     const handleDelete = (post)=>{
-        deletePost({variables:{id: post.id}})
     }
     return (
         <div>
             <h1>Blog</h1>
             {
-                loading || data.posts.map(post => <Post key={post.id} handleDelete={handleDelete} post={post} />)
+                posts && posts.map(post => <Post key={post.id} handleDelete={handleDelete} post={post} />)
             }
         </div>
     )
