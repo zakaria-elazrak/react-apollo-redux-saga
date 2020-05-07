@@ -5,16 +5,7 @@ import {INSERT_POST, POSTS_QUERY} from '../queries/posts'
 const AddPost = ()=>{
     const [state, setState] = useState({title: "", body: ""});
 
-    const [addPost, { data }] = useMutation(INSERT_POST, {
-        update(cache, { data: { insert_posts } }) {
-            const { posts } = cache.readQuery({ query: POSTS_QUERY });
-            console.log(posts);
-            cache.writeQuery({
-            query: POSTS_QUERY,
-            data: { posts: posts.concat([insert_posts.returning[0]]) },
-            });
-        }     
-    });
+    const [addPost, { data }] = useMutation(INSERT_POST);
 
 
     const handleChange = (e)=>{

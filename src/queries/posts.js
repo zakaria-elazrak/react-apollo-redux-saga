@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const POSTS_QUERY = gql`
-        {
+        subscription{
            posts {
                 id
                 title
